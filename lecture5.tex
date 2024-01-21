@@ -1,0 +1,125 @@
+\section*{Lecture 5の回答}
+
+\subsection*{線形回帰モデルへの変形}
+\begin{align*}
+a= -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) 
++\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2) + \ln \frac{p(C_1)}{p(C_2)} 
+\end{align*}
+
+の時、
+\begin{equation*}
+	\mathbf{w} = \mathbf{\Sigma}^{-1} (\bm{\mu}_1 - \bm{\mu}_2 )
+\end{equation*}
+
+\begin{equation*}
+	w_0 = -\frac{1}{2}\bm{\mu}_1^T \mathbf{\Sigma}^{-1} \bm{\mu}_1 + \frac{1}{2} \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2 + \ln \frac{p(C_1)}{p(C_2)}
+\end{equation*}
+
+とおくと、
+
+\begin{equation*}
+	a = \mathbf{w}^T\mathbf{x} + w_0
+\end{equation*}
+
+と表記できることを示す。
+
+\begin{dmath*}
+a = -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) 
++\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2) + \ln \frac{p(C_1)}{p(C_2)} \\
+= -\frac{1}{2} (  \mathbf{x}^T  \mathbf{\Sigma}^{-1} \mathbf{x} - \mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1   -  \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x}  +   \bm{\mu}_1^T \mathbf{\Sigma}^{-1}   \bm{\mu}_1  ) +   -\frac{1}{2} (   \mathbf{x}^T \mathbf{\Sigma}^{-1}  \mathbf{x} - \mathbf{x}^T  \mathbf{\Sigma}^{-1}   \bm{\mu}_2 -  \bm{\mu}_2^T \mathbf{\Sigma}^{-1}  \mathbf{x} + \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2  )+ \ln \frac{p(C_1)}{p(C_2)}
+\end{dmath*}
+
+
+ここで、$ \mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1   $はスカラなので転置をかけても等しくなるので、$ (\mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1 )^T = \bm{\mu}_1^T {\mathbf{\Sigma}^{-1}}^T  \mathbf{x} =  \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} $となる。ただし、$(ABC)^T = C^T B^T A^T$と、$\Sigma$は対称行列で、対称行列の逆行列もまた対称行列となることから、${\mathbf{\Sigma}^{-1}}^T = \mathbf{\Sigma}^{-1}$を使った。これを使い、
+
+\begin{dmath*}
+a = -\frac{1}{2} \mathbf{x}^T  \mathbf{\Sigma}^{-1} \mathbf{x} +   \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} 	-\frac{1}{2} \bm{\mu}_1^T \mathbf{\Sigma}^{-1}   \bm{\mu}_1  +\frac{1}{2} \mathbf{x}^T  \mathbf{\Sigma}^{-1} \mathbf{x} - \bm{\mu}_2^T \mathbf{\Sigma}^{-1}  \mathbf{x} + \frac{1}{2}  \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2+ \ln \frac{p(C_1)}{p(C_2)} \\
+=  \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} 	-\frac{1}{2} \bm{\mu}_1^T \mathbf{\Sigma}^{-1}   \bm{\mu}_1 - \bm{\mu}_2^T \mathbf{\Sigma}^{-1}  \mathbf{x} + \frac{1}{2}  \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2+\ln \frac{p(C_1)}{p(C_2)}
+\end{dmath*}
+
+ここで、$ \mathbf{w}^T\mathbf{x} + w_0$を計算すると、
+\begin{dmath*}
+\mathbf{w}^T\mathbf{x} + w_0 = ( \bm{\mu}_1^T - \bm{\mu}_2^T ) \mathbf{\Sigma}^{-1} \mathbf{x}-\frac{1}{2}\bm{\mu}_1^T \mathbf{\Sigma}^{-1} \bm{\mu}_1 + \frac{1}{2} \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2 +\ln \frac{p(C_1)}{p(C_2)} \\
+= \bm{\mu}_1^T \mathbf{\Sigma}^{-1}\mathbf{x} - \bm{\mu}_2^T \mathbf{\Sigma}^{-1}\mathbf{x}-\frac{1}{2}\bm{\mu}_1^T \mathbf{\Sigma}^{-1} \bm{\mu}_1 + \frac{1}{2} \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2 +\ln \frac{p(C_1)}{p(C_2)}  
+\end{dmath*}
+
+となるので、$a = \mathbf{w}^T\mathbf{x} + w_0$が示せた。
+
+
+\subsection*{シグモイド関数の微分}
+
+$\sigma(x) = \frac{1}{1 + \mathrm{exp}(-x)}$の時、$\frac{d \sigma(x)}{dx}= \sigma(x)(1-\sigma(x))$を示そう。
+
+\begin{dmath*}
+\frac{d \sigma(x)}{dx}= \frac{d (1+e^{-x})^{-1}}{dx} = - (1+e^{-x})^{-2} (-1) e^{-x} \quad(\because \frac{d e^{-x}}{dx}\hiderel{=}-e^{-x} ) \\
+= 	(1+e^{-x})^{-2} e^{-x}
+\end{dmath*}
+
+ここで、右辺を計算すると、
+
+\begin{dmath*}
+\sigma(x)(1-\sigma(x)) = (1+e^{-x})^{-1} \frac{1+e^{-x}-1}{1+e^{-x}} \\
+= (1+e^{-x})^{-2} e^{-x} 
+\end{dmath*}
+
+よって、$\frac{d \sigma(x)}{dx}= \sigma(x)(1-\sigma(x))$を示した。
+
+\subsection*{交差エントロピー誤差関数の微分}
+
+$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N (t_n - y_n) \bm{\phi}_n$を示そう。
+
+\begin{dmath*}
+\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N \frac{\partial}{\partial \mathbf{w}}(  t_n \ln y_n + (1-t_n)\ln(1-y_n)  ) \\
+= \sum_{n=1}^N  (  t_n \frac{\partial}{\partial \mathbf{w}} \ln y_n + (1-t_n) 	\frac{\partial}{\partial \mathbf{w}} \ln (1 - y_n))
+\end{dmath*}
+
+まずは$\frac{\partial}{\partial \mathbf{w}} \ln y_n$を計算しよう。
+
+\begin{dmath*}
+\frac{\partial}{\partial \mathbf{w}} \ln y_n = \frac{1}{y_n} \frac{\partial}{\partial \mathbf{w}} y_n \quad (\because  \frac{d \ln x}{dx} \hiderel{=} \frac{1}{x}) \\
+=  \frac{1}{ \sigma(\mathbf{w}^T \bm{\phi}_n)} 	\frac{\partial}{\partial \mathbf{w}} \sigma(\mathbf{w}^T \bm{\phi}_n) \\
+= \frac{1}{ \sigma(\mathbf{w}^T \bm{\phi}_n)}  \sigma(\mathbf{w}^T \bm{\phi}_n)  (1 -  \sigma(\mathbf{w}^T \bm{\phi}_n)  ) 	\bm{\phi}_n \quad (\because \frac{d \sigma(x)}{dx} \hiderel{=} \sigma(x)(1-\sigma(x))) \\
+= (1 - y_n) \bm{\phi}_n
+\end{dmath*}
+
+次に、$\frac{\partial}{\partial \mathbf{w}} \ln (1 - y_n)$を計算しよう。
+\begin{dmath*}
+\frac{\partial}{\partial \mathbf{w}} \ln (1 - y_n) = \frac{1}{1 - y_n} \frac{\partial}{\partial \mathbf{w}} (1 - y_n) \\
+= \frac{1}{1 - y_n} \cdot - \frac{\partial}{\partial \mathbf{w}} y_n	\\
+= \frac{1}{1 - y_n} \cdot - y_n (1 - y_n) \bm{\phi}_n \\
+= - y_n \bm{\phi}_n 
+\end{dmath*}
+
+これにより、
+\begin{dmath*}
+\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N  (  t_n  (1-t_n)\bm{\phi}_n   + (1-t_n)(-y_n \bm{\phi}_n))\\
+= \sum_{n=1}^N (t_n - y_n) \bm{\phi}_n
+\end{dmath*}
+
+と示せた。
+
+\subsection*{意地悪な問題}
+$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (t_n - y_n) \phi_n = 0$となるような$\mathbf{w}$を解析的に導出してみよう。
+
+\begin{dmath*}
+\sum_{n=1}^N t_n \phi_n = \sum_{n=1}^N y_n \phi_n \\
+\sum_{n=1}^N t_n \phi_n \hiderel{=} \sum_{n=1}^N  \sigma(\mathbf{w}^T \bm{\phi}_n) \phi_n
+\end{dmath*}
+
+さて、線形回帰の時には、
+\begin{equation}
+	\sum_{n=1}^N t_n \bm{\phi}_n^{\top} =  \mathbf{w}^{\top} \sum_{n=1}^N \bm{\phi}_n \bm{\phi}_n^{\top}
+\end{equation}
+
+となり、$\Phi = \begin{pmatrix} 
+\bm{\phi}(x_1) \\
+\bm{\phi}(x_2) \\
+\cdots \\
+\bm{\phi}(x_N) \\
+\end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t} = \mathbf{w}^{\top} \Phi^{\top} \Phi$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないことに注意しよう)
+
+
+
+
+
+
