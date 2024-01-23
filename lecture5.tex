@@ -119,6 +119,32 @@ $\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (t_n - y_n) 
 \end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t} = \mathbf{w}^{\top} \Phi^{\top} \Phi$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないことに注意しよう)
 
 
+\subsection*{線形識別モデルのヘッセ行列}
+
+$\nabla E (\mathbf{w} ) = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n $の時に$\mathbf{H} = \nabla \nabla E(\mathbf{w}) = \sum_{n=1}^N y_n (1 - y_n) \bm{\phi}_n \bm{\phi}_n^{\top}$となることを示そう。ただし、$\frac{\partial x \mathbf{a}}{\partial \mathbf{w}} = \mathbf{a}^T \frac{\partial x}{\partial \mathbf{w}} \quad (x \text{は} \mathbf{w} \text{の関数})$
+
+$y_n' = y_n(1-y_n)\bm{\phi}_n$より、$\mathbf{H} = \sum \frac{\partial  y_n \bm{\phi}_n}{\partial \mathbf{w}} = \sum \bm{\phi}_n^T y_n(1 - y_n) {\bm{\phi}_n}$
+
+\subsection*{softmax関数の微分}
+$ y_k(\bm{\phi})  =  p(C_k | \bm{\phi}) = \frac{\exp(a_{k})}{\sum_j \exp(a_{j}) } \quad (a_k = \mathbf{w}_k^T \bm{\phi}) $に対し、$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$を示そう。
+
+\begin{equation}
+	\frac{\partial}{\partial a_k} y_k = \frac{\exp(a_k) (\sum \exp(a_j)) - \exp (a_k) \exp(a_k) }{(\sum \exp(a_j))^2} = y_k - y_k^2
+\end{equation}
+
+$k \neq j$として
+
+\begin{equation}
+	\frac{\partial}{\partial a_j} y_k = -\frac{\exp(a_k) \exp(a_j) }{(\sum \exp(a_j))^2} =  y_k y_j
+\end{equation}
+
+よってこの二つをまとめて、
+$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$
+
+
+
+
+
 
 
 
