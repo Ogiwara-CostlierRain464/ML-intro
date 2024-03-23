@@ -1,0 +1,74 @@
+\section*{Lecture 2の回答}
+
+\subsection*{線形回帰モデルへの変形}
+
+$\sum_{k=1}^n (k^2 - 2k + 1)$ を求める。
+
+\begin{equation*}
+	\sum_{k=1}^n (a_k + b_k) = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k
+\end{equation*} 
+
+より、$\sum_{k=1}^n (k^2 - 2k + 1) = \sum_{k=1}^n k^2 -  \sum_{k=1}^n 2k +  \sum_{k=1}^n 1 = \sum_{k=1}^n k^2 -  \sum_{k=1}^n 2k +  n $ 
+
+\begin{equation*}
+	\sum_{k=1}^n ca_k = c\sum_{k=1}^n a_k
+\end{equation*}
+
+より、$ \sum_{k=1}^n k^2 - \sum_{k=1}^n 2k +  n = \sum_{k=1}^n k^2 - 2 \sum_{k=1}^n k + n $ 
+
+\begin{equation*}
+1^2 + 2^2 + 3^2 + \cdots + n^2 = \sum_{k=1}^n k^2
+ = \frac{1}{6}n(n+1)(2n+1)	
+\end{equation*}
+
+より、$ \sum_{k=1}^n k^2 - 2 \sum_{k=1}^n k + n = \frac{1}{6}n(n+1)(2n+1) - 2 \sum_{k=1}^n k + n $
+
+\begin{equation*}
+1+2+3+\cdots + n = \sum_{k=1}^n k = \frac{1}{2}n (n+1)	
+\end{equation*}
+
+より、$ \frac{1}{6}n(n+1)(2n+1) - 2 \sum_{k=1}^n k + n = \frac{1}{6}n(n+1)(2n+1) - n(n+1) + n = \frac{1}{3}n^3 - \frac{1}{2}n^2 + \frac{1}{6}n $
+
+
+\subsection*{min関数}
+\begin{equation*}
+	\min \{ 0, 1, 2 \} = 0
+\end{equation*}
+この場合、min関数は与えられた集合のうち最小の要素を返す。
+
+\begin{equation*}
+	\min_{x} (x-1)^2  = 0
+\end{equation*}
+この場合、min関数は与えられた関数について、minの下のパラメータ（ここでは$x$）を調節して得られる関数の最小値を返す。
+
+\begin{equation*}
+	\mathrm{arg}\!\min_{x} (x-1)^2 = 1
+\end{equation*}
+argmin関数は、与えられた関数をargminの下のパラメータ（ここでは$x$）を調節して最小化する時の、パラメータの値を返す。
+
+\subsection*{罰金項を含めた最適化}
+$\frac{\partial \tilde{E}(\mathbf{w}) }{\partial w_i}$を算出する。ここで、
+\begin{equation*}
+	\tilde{E}(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^N \{  y(x_n, \mathbf{w}) - t_n \}^2 + \frac{\lambda}{2} \| \mathbf{w} \| ^ 2
+\end{equation*}
+
+\begin{equation*}
+	\| \mathbf{w} \|^2 \equiv \mathbf{w}^{\top} \mathbf{w} = w_0^2 + w_1^2 + \cdots + w_M^2
+\end{equation*}
+
+\begin{equation*}
+	y(x, \mathbf{w} ) = \sum_{j=0}^M w_j x^j
+\end{equation*}
+
+とする。
+
+
+$\frac{\partial {E}(\mathbf{w}) }{\partial w_i} = \sum_{n=1}^N \{y(x_n, \mathbf{w}) - t_n \} x_n^i$より、あとは$\frac{\partial}{\partial w_i} \big( \frac{\lambda}{2} \| \mathbf{w} \| ^ 2 \big)$を計算すれば良い。
+
+\begin{dmath*}
+	\frac{\partial}{\partial w_i} \big( \frac{\lambda}{2} \| \mathbf{w} \| ^ 2 \big) \\
+	= {\lambda}  w_i
+\end{dmath*}
+
+よって、$\frac{\partial \tilde{E}(\mathbf{w}) }{\partial w_i} = \sum_{n=1}^N \{y(x_n, \mathbf{w}) - t_n \} x_n^i + {\lambda}  w_i$となる。
+

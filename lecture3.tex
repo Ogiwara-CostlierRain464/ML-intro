@@ -1,0 +1,33 @@
+\section*{Lecture 3の回答}
+
+\subsection*{対数関数と総乗}
+
+$\ln \prod_{n=1}^N x_n^2 $を計算する。$\ln (a \cdot b) = \ln a + \ln b$という性質を総乗の形で一般化すると、
+
+\begin{equation*}
+	\ln \prod_{n=1}^N a_n = \sum_{n=1}^N \ln a_n
+\end{equation*}
+
+となるので、$\ln \prod_{n=1}^N x_n^2 = \sum_{n=1}^N \ln x_n^2 = \sum_{n=1}^N  2\ln x_n $となる。
+
+
+\subsection*{対数関数とargmax}
+
+実関数$f(x)$において、$\mathrm{arg}\!\max_{x} f(x) $と $\mathrm{arg}\!\max_{x} \ln f(x) $ の値が同じになることを示す。
+
+実関数$f(x)$が$x=a$において最大になるとする。つまり、$a$の任意の前後の値、$b<a<c$において、$f(b) < f(a)$、$f(c) < f(a)$となる。さて、対数関数は単調増加性を持つので、$x < y \Rightarrow \log x < \log y$となる。これらを組み合わせると、$f(b) < f(a) \Rightarrow \ln f(b) < \ln f(a)$、$f(c) < f(a) \Rightarrow \ln f(c) < \ln f(a)$となる。つまり、対数関数が適用されても、$f(x)$を最大化する値(ここでは$a$)は変わらない、ということである。よって、$\mathrm{arg}\!\max_{x} f(x) $ = $\mathrm{arg}\!\max_{x} \ln f(x) $ が示された。
+
+\subsection*{対数関数とガウス分布}
+
+$N(x | \mu , \sigma^2 ) = \frac{1}{(2\pi \sigma^2)^{1/2}} \exp \bigg( -\frac{1}{2\sigma^2}(x-\mu)^2 \bigg)$に対して対数関数を適用する。
+
+\begin{dmath*}
+\ln N(x | \mu, \sigma^2) \\
+= \ln \bigg( \frac{1}{(2\pi \sigma^2)^{1/2}} \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \bigg) \\
+= \ln \frac{1}{(2\pi \sigma^2)^{1/2}} + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \quad (\because \log_c (a \cdot b) = \log_c a + \log_c b) \\
+= \ln (2\pi \sigma^2)^{-1/2} + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \\
+= -\frac{1}{2} \ln (2\pi \sigma^2) + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \\
+= -\frac{1}{2} \ln (2\pi \sigma^2)  -\frac{1}{2\sigma^2}(x-\mu)^2 \quad (\because  \ln \exp x = \ln e^x = x )  \\
+\end{dmath*}
+
+
