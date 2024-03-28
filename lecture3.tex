@@ -27,7 +27,77 @@ $N(x | \mu , \sigma^2 ) = \frac{1}{(2\pi \sigma^2)^{1/2}} \exp \bigg( -\frac{1}{
 = \ln \frac{1}{(2\pi \sigma^2)^{1/2}} + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \quad (\because \log_c (a \cdot b) = \log_c a + \log_c b) \\
 = \ln (2\pi \sigma^2)^{-1/2} + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \\
 = -\frac{1}{2} \ln (2\pi \sigma^2) + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \\
-= -\frac{1}{2} \ln (2\pi \sigma^2)  -\frac{1}{2\sigma^2}(x-\mu)^2 \quad (\because  \ln \exp x = \ln e^x = x )  \\
+= -\frac{1}{2} \ln 2\pi -\frac{1}{2} \ln \sigma^2  + \ln \exp \big( -\frac{1}{2\sigma^2}(x-\mu)^2 \big) \\
+= -\frac{1}{2} \ln 2\pi -\frac{1}{2} \ln \sigma^2  -\frac{1}{2\sigma^2}(x-\mu)^2 \quad (\because  \ln \exp x = \ln e^x = x )  \\
 \end{dmath*}
 
+
+\subsection*{最尤推定}
+\begin{equation*}
+	L(\mu, \sigma^2) = -\frac{N}{2} \ln 2\pi - \frac{N}{2} \ln \sigma^2  -  \frac{1}{2\sigma^2} \sum_{i=1}^N (x_i-\mu)^2
+\end{equation*}
+
+とし、$\frac{\partial L}{\partial \mu } = 0, \frac{\partial L}{\partial \sigma^2 } = 0$を解くと、
+
+\begin{equation*}
+	\mu = \frac{1}{N} \sum_{i=1}^N x_i, \quad \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2
+\end{equation*}
+
+となることを示す。
+
+\begin{dmath*}
+	\frac{\partial L}{\partial \mu } \\
+	= \frac{d}{d \mu} \bigg(  -  \frac{1}{2\sigma^2} \sum_{i=1}^N (x_i-\mu)^2 \bigg) \\
+	=  -  \frac{1}{2\sigma^2} \sum_{i=1}^N   \frac{d (x_i-\mu)^2}{d \mu} \quad (\because \text{微分の線形性}) \\
+	= -  \frac{1}{2\sigma^2} \sum_{i=1}^N   -2(x_i - \mu) \\
+	= \frac{1}{\sigma^2} \sum_{i=1}^N x_i - \mu
+\end{dmath*}
+
+$\frac{\partial L}{\partial \mu } = 0$を解くと、
+
+\begin{dmath*}
+	\frac{1}{\sigma^2} \sum_{i=1}^N x_i - \mu \hiderel{=} 0 \\
+	\Leftrightarrow\sum_{i=1}^N x_i\hiderel{=}\sum_{i=1}^N \mu \\
+	\Leftrightarrow\sum_{i=1}^N x_i\hiderel{=}N \mu \\
+	\Leftrightarrow \mu \hiderel{=} \frac{1}{N} \sum_{i=1}^N x_i \\
+\end{dmath*}
+
+同様にして、$\frac{\partial L}{\partial \sigma^2 }$を解く。
+
+\begin{dmath*}
+	\frac{\partial L}{\partial \sigma^2 } \\
+	= \frac{d}{d \sigma^2} \big( - \frac{N}{2} \ln \sigma^2 \big) + \frac{d}{d \sigma^2} \big(  -  \frac{1}{2\sigma^2} \sum_{i=1}^N (x_i-\mu)^2 \big) \\
+	= - \frac{N}{2} \frac{1}{\sigma^2} +  \frac{d}{d \sigma^2} \big(  -  \frac{1}{2\sigma^2} \sum_{i=1}^N (x_i-\mu)^2 \big) \quad (\because \frac{d \ln x}{d x} \hiderel{=} \frac{1}{x}) \\
+	=  - \frac{N}{2} \frac{1}{\sigma^2} -  \frac{1}{2} \sum_{i=1}^N (x_i-\mu)^2 \frac{d}{d \sigma^2}  \frac{1}{\sigma^2} \quad (\because \text{微分の線形性}) \\
+	=  - \frac{N}{2} \frac{1}{\sigma^2} + \frac{1}{2}\frac{1}{\sigma^4} \sum_{i=1}^N (x_i-\mu)^2
+\end{dmath*}
+
+$\frac{\partial L}{\partial \sigma^2 } = 0$を解く。
+
+\begin{dmath*}
+	- \frac{N}{2} \frac{1}{\sigma^2} + \frac{1}{2}\frac{1}{\sigma^4} \sum_{i=1}^N (x_i-\mu)^2 \hiderel{=} 0 \\
+	\Leftrightarrow \frac{N}{2} \frac{1}{\sigma^2} \hiderel{=} \frac{1}{2}\frac{1}{\sigma^4} \sum_{i=1}^N (x_i-\mu)^2 \\
+	\Leftrightarrow N \sigma^2 \hiderel{=} \sum_{i=1}^N (x_i-\mu)^2 \\
+	\Leftrightarrow \sigma^2 \hiderel{=} \frac{1}{N} \sum_{i=1}^N (x_i-\mu)^2 \\
+\end{dmath*}
+
+
+\subsection*{$\beta$についての最尤推定}
+
+$\ln p(\mathbf{t} | \mathbf{x}, \mathbf{w}, \beta) = -\frac{N}{2} \ln (2\pi) + \frac{N}{2} \ln \beta  - \frac{\beta}{2} \sum_{n=1}^N  (t_n - y)^2 $とし、$\frac{\partial  \ln p(\mathbf{t} | \mathbf{x}, \mathbf{w}, \beta) }{\partial \beta }(\beta^\star) = 0
+$となる$\beta^\star$を求める。
+
+\begin{dmath*}
+	\frac{\partial  \ln p(\mathbf{t} | \mathbf{x}, \mathbf{w}, \beta) }{\partial \beta }(\beta^\star) \\
+	= \frac{\partial}{\partial \beta}\bigg( \frac{N}{2} \ln \beta - \frac{\beta}{2} \sum_{n=1}^N  (t_n - y)^2   \bigg) \\
+	= \frac{N}{2 \beta}  - \frac{1}{2} \sum_{n=1}^N  (t_n - y)^2  \\
+\end{dmath*}
+
+$\frac{\partial  \ln p(\mathbf{t} | \mathbf{x}, \mathbf{w}, \beta) }{\partial \beta } = 0$を解くと、
+
+\begin{dmath*}
+	\frac{N}{2 \beta}  - \frac{1}{2} \sum_{n=1}^N  (t_n - y)^2 \hiderel{=} 0 \\
+	\Leftrightarrow  \frac{N}{2 \beta} \hiderel{=}  \frac{1}{2} \sum_{n=1}^N  (t_n - y)^2 \\
+	\Leftrightarrow \frac{1}{\beta} \hiderel{=}  \frac{1}{N} \sum_{n=1}^N  (t_n - y)^2 \\
+\end{dmath*} 
 

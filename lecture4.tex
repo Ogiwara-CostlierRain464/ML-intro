@@ -1,0 +1,32 @@
+\section*{Lecture 4の回答}
+
+\subsection*{スカラ関数のベクトル微分}
+
+$y$が$\mathbf{w}$の関数のとき、$\frac{\partial}{ \partial \mathbf{w}} y^2 = 2 \bigg( \frac{\partial y }{ \partial \mathbf{w} } \bigg)y$となることを示す。ただし、$\mathbf{w} = (w_1, w_2)^T$とする。
+
+左辺は、
+\begin{equation*}
+\frac{\partial}{\partial \mathbf{w}} y^2 = \begin{pmatrix}
+	\frac{\partial y^2}{\partial w_1} \\
+	\frac{\partial y^2}{\partial w_2}   
+\end{pmatrix} = \begin{pmatrix}
+	2y\frac{\partial y}{\partial w_1} \\
+	2y\frac{\partial y}{\partial w_2}   
+\end{pmatrix}		
+\end{equation*}
+
+右辺は、
+
+\begin{equation*}
+2 \bigg( \frac{\partial y }{ \partial \mathbf{w} } \bigg)y =  
+2\begin{pmatrix}
+	\frac{\partial y}{\partial w_1} \\
+	\frac{\partial y}{\partial w_2}   
+\end{pmatrix}y = \begin{pmatrix}
+	2y\frac{\partial y}{\partial w_1} \\
+	2y\frac{\partial y}{\partial w_2}   
+\end{pmatrix}		
+\end{equation*}
+
+
+よって、両辺は等しい。同じようにして、$\mathbf{w}$が$N$次元ベクトル場合の場合も示せる。

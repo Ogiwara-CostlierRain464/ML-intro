@@ -30,7 +30,7 @@ a = -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} -
 \end{dmath*}
 
 
-ここで、$ \mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1   $はスカラなので転置をかけても等しくなるので、$ (\mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1 )^T = \bm{\mu}_1^T {\mathbf{\Sigma}^{-1}}^T  \mathbf{x} =  \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} $となる。ただし、$(ABC)^T = C^T B^T A^T$と、$\Sigma$は対称行列で、対称行列の逆行列もまた対称行列となることから、${\mathbf{\Sigma}^{-1}}^T = \mathbf{\Sigma}^{-1}$を使った。これを使い、
+ここで、$ \mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1   $はスカラなので転置をかけても等しくなるので、$ (\mathbf{x}^T   \mathbf{\Sigma}^{-1}  \bm{\mu}_1 )^T = \bm{\mu}_1^T {\mathbf{\Sigma}^{-1}}^T  \mathbf{x} =  \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} $となる。また、$(ABC)^T = C^T B^T A^T$であることと、$\Sigma$は対称行列で、対称行列の逆行列もまた対称行列となることから、${\mathbf{\Sigma}^{-1}}^T = \mathbf{\Sigma}^{-1}$を使った。これらを使い、
 
 \begin{dmath*}
 a = -\frac{1}{2} \mathbf{x}^T  \mathbf{\Sigma}^{-1} \mathbf{x} +   \bm{\mu}_1^T \mathbf{\Sigma}^{-1}  \mathbf{x} 	-\frac{1}{2} \bm{\mu}_1^T \mathbf{\Sigma}^{-1}   \bm{\mu}_1  +\frac{1}{2} \mathbf{x}^T  \mathbf{\Sigma}^{-1} \mathbf{x} - \bm{\mu}_2^T \mathbf{\Sigma}^{-1}  \mathbf{x} + \frac{1}{2}  \bm{\mu}_2^T \mathbf{\Sigma}^{-1} \bm{\mu}_2+ \ln \frac{p(C_1)}{p(C_2)} \\
@@ -116,7 +116,7 @@ $\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (t_n - y_n) 
 \bm{\phi}(x_2) \\
 \cdots \\
 \bm{\phi}(x_N) \\
-\end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t} = \mathbf{w}^{\top} \Phi^{\top} \Phi$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないことに注意しよう)
+\end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t} = \mathbf{w}^{\top} \Phi^{\top} \Phi$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないため。)
 
 
 \subsection*{線形識別モデルのヘッセ行列}
