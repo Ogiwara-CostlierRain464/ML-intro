@@ -1,5 +1,29 @@
 \section*{Lecture 5の回答}
 
+\subsection*{対数関数と指数関数}
+
+\begin{dmath*}
+	\ln \frac{ 
+\mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1)  \bigg) p(C_1)
+}{
+\mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2)  \bigg) p(C_2)
+} = -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) +\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2) + \ln \frac{p(C_1)}{p(C_2)}
+\end{dmath*}
+となることを示す。$x = \ln (\mathrm{exp}(x)) = \mathrm{exp}(\ln x)$より、
+
+\begin{align*}
+&\ln \frac{ 
+\mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1)  \bigg) p(C_1)
+}{
+\mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2)  \bigg) p(C_2)
+} \\
+&= \ln \bigg( \mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1)  \bigg) p(C_1) \bigg) \bigg( \mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2)  \bigg) p(C_2) \bigg)^{-1} \\
+&=\ln \bigg( \mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1)  \bigg) p(C_1) \bigg) - \ln \bigg( \mathrm{exp}\bigg( -\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2)  \bigg) p(C_2) \bigg) \\
+&=  -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) + \ln p(C_1) + \frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2) - \ln p(C_2) \\
+&= -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) +\frac{1}{2} (\mathbf{x} - \bm{\mu}_2)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_2) + \ln \frac{p(C_1)}{p(C_2)}
+\end{align*}
+
+
 \subsection*{線形回帰モデルへの変形}
 \begin{align*}
 a= -\frac{1}{2} (\mathbf{x} - \bm{\mu}_1)^T \mathbf{\Sigma}^{-1}  (\mathbf{x} - \bm{\mu}_1) 
@@ -66,11 +90,11 @@ $\sigma(x) = \frac{1}{1 + \mathrm{exp}(-x)}$の時、$\frac{d \sigma(x)}{dx}= \s
 
 \subsection*{交差エントロピー誤差関数の微分}
 
-$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N (t_n - y_n) \bm{\phi}_n$を示そう。
+$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n$を示そう。
 
 \begin{dmath*}
-\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N \frac{\partial}{\partial \mathbf{w}}(  t_n \ln y_n + (1-t_n)\ln(1-y_n)  ) \\
-= \sum_{n=1}^N  (  t_n \frac{\partial}{\partial \mathbf{w}} \ln y_n + (1-t_n) 	\frac{\partial}{\partial \mathbf{w}} \ln (1 - y_n))
+\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = -\sum_{n=1}^N \frac{\partial}{\partial \mathbf{w}}(  t_n \ln y_n + (1-t_n)\ln(1-y_n)  ) \\
+= -\sum_{n=1}^N  (  t_n \frac{\partial}{\partial \mathbf{w}} \ln y_n + (1-t_n) 	\frac{\partial}{\partial \mathbf{w}} \ln (1 - y_n))
 \end{dmath*}
 
 まずは$\frac{\partial}{\partial \mathbf{w}} \ln y_n$を計算しよう。
@@ -92,14 +116,15 @@ $\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N (t_n - y_n) \
 
 これにより、
 \begin{dmath*}
-\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = \sum_{n=1}^N  (  t_n  (1-t_n)\bm{\phi}_n   + (1-t_n)(-y_n \bm{\phi}_n))\\
-= \sum_{n=1}^N (t_n - y_n) \bm{\phi}_n
+\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} = -\sum_{n=1}^N  (  t_n  (1-t_n)\bm{\phi}_n   + (1-t_n)(-y_n \bm{\phi}_n))\\
+= -\sum_{n=1}^N (t_n - y_n) \bm{\phi}_n \\
+= \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n
 \end{dmath*}
 
 と示せた。
 
 \subsection*{意地悪な問題}
-$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (t_n - y_n) \phi_n = 0$となるような$\mathbf{w}$を解析的に導出してみよう。
+$\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (y_n - t_n) \phi_n = 0$となるような$\mathbf{w}$を解析的に導出してみよう。
 
 \begin{dmath*}
 \sum_{n=1}^N t_n \phi_n = \sum_{n=1}^N y_n \phi_n \\
@@ -121,7 +146,7 @@ $\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (t_n - y_n) 
 
 \subsection*{線形識別モデルのヘッセ行列}
 
-$\nabla E (\mathbf{w} ) = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n $の時に$\mathbf{H} = \nabla \nabla E(\mathbf{w}) = \sum_{n=1}^N y_n (1 - y_n) \bm{\phi}_n \bm{\phi}_n^{\top}$となることを示そう。ただし、$\frac{\partial x \mathbf{a}}{\partial \mathbf{w}} = \mathbf{a}^T \frac{\partial x}{\partial \mathbf{w}} \quad (x \text{は} \mathbf{w} \text{の関数})$
+$\nabla E (\mathbf{w} ) = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n $の時に$\mathbf{H} = \nabla \nabla E(\mathbf{w}) = \sum_{n=1}^N y_n (1 - y_n) \bm{\phi}_n \bm{\phi}_n^{\top}$となることを示そう。ただし、$\frac{\partial x \mathbf{a}}{\partial \mathbf{w}} = \mathbf{a}^T \frac{\partial x}{\partial \mathbf{w}} \quad (x \text{は} \mathbf{w} \text{の関数})$。
 
 $y_n' = y_n(1-y_n)\bm{\phi}_n$より、$\mathbf{H} = \sum \frac{\partial  y_n \bm{\phi}_n}{\partial \mathbf{w}} = \sum \bm{\phi}_n^T y_n(1 - y_n) {\bm{\phi}_n}$
 
