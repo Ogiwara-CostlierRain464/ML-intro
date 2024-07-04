@@ -133,38 +133,54 @@ $\frac{\partial E(\mathbf{w})}{\partial \mathbf{w}} =  \sum_{n=1}^N (y_n - t_n) 
 
 さて、線形回帰の時には、
 \begin{equation}
-	\sum_{n=1}^N t_n \bm{\phi}_n^{\top} =  \mathbf{w}^{\top} \sum_{n=1}^N \bm{\phi}_n \bm{\phi}_n^{\top}
+	\sum_{n=1}^N t_n \bm{\phi}_n = \bigg( \sum_{n=1}^N \bm{\phi}_n \bm{\phi}_n^{\top} \bigg) \mathbf{w}
 \end{equation}
 
 となり、$\Phi = \begin{pmatrix} 
-\bm{\phi}(x_1) \\
-\bm{\phi}(x_2) \\
+\bm{\phi}(\mathbf{x}_1) \\
+\bm{\phi}(\mathbf{x}_2) \\
 \cdots \\
-\bm{\phi}(x_N) \\
-\end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t} = \mathbf{w}^{\top} \Phi^{\top} \Phi$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないため。)
+\bm{\phi}(\mathbf{x}_N) \\
+\end{pmatrix}$ とおくことによって、$\Phi^{\top} \mathbf{t}   = \Phi^{\top} \Phi  \mathbf{w}$と変形できた。しかし、今回は非線形の関数$\sigma$があるために$\mathbf{w}$を$\Sigma$の外側に移動できない！(非線形関数は行列では表現できないため。)
 
 
 \subsection*{線形識別モデルのヘッセ行列}
 
-$\nabla E (\mathbf{w} ) = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n $の時に$\mathbf{H} = \nabla \nabla E(\mathbf{w}) = \sum_{n=1}^N y_n (1 - y_n) \bm{\phi}_n \bm{\phi}_n^{\top}$となることを示そう。ただし、$\frac{\partial x \mathbf{a}}{\partial \mathbf{w}} = \mathbf{a}^T \frac{\partial x}{\partial \mathbf{w}} \quad (x \text{は} \mathbf{w} \text{の関数})$。
+$\nabla E (\mathbf{w} ) = \sum_{n=1}^N (y_n - t_n) \bm{\phi}_n $の時に$\mathbf{H} = \nabla \nabla E(\mathbf{w}) = \sum_{n=1}^N y_n (1 - y_n) \bm{\phi}_n \bm{\phi}_n^{\top}$となることを示そう。ただし、$\frac{\partial x \mathbf{a}}{\partial \mathbf{w}} = \mathbf{a} \big( \frac{\partial x}{\partial \mathbf{w}} \big)^T \quad (x \text{は} \mathbf{w} \text{の関数})$。
 
-$y_n' = y_n(1-y_n)\bm{\phi}_n$より、$\mathbf{H} = \sum \frac{\partial  y_n \bm{\phi}_n}{\partial \mathbf{w}} = \sum \bm{\phi}_n^T y_n(1 - y_n) {\bm{\phi}_n}$
+$y_n' = y_n(1-y_n)\bm{\phi}_n$より、$\mathbf{H} = \sum \frac{\partial  y_n \bm{\phi}_n}{\partial \mathbf{w}} = \sum \bm{\phi}_n (y_n(1 - y_n) {\bm{\phi}_n})^T = \sum  y_n(1 - y_n) {\bm{\phi}_n} \bm{\phi}_n^T$。
+
 
 \subsection*{softmax関数の微分}
-$ y_k(\bm{\phi})  =  p(C_k | \bm{\phi}) = \frac{\exp(a_{k})}{\sum_j \exp(a_{j}) } \quad (a_k = \mathbf{w}_k^T \bm{\phi}) $に対し、$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$を示そう。
+$ y_k(\bm{\phi})  =  p(C_k | \bm{\phi}) = \frac{\exp(a_{k})}{\sum_i \exp(a_{i}) } \quad (a_k = \mathbf{w}_k^T \bm{\phi}) $に対し、$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$を示そう。
 
-\begin{equation}
-	\frac{\partial}{\partial a_k} y_k = \frac{\exp(a_k) (\sum \exp(a_j)) - \exp (a_k) \exp(a_k) }{(\sum \exp(a_j))^2} = y_k - y_k^2
-\end{equation}
+$k = j$の時は、
 
-$k \neq j$として
+\begin{equation*}
+	\frac{\partial  y_k}{\partial a_k} = \frac{\exp(a_k) (\sum_i \exp(a_i)) - \exp (a_k) \exp(a_k) }{(\sum_i \exp(a_i))^2} = y_k - y_k^2 = y_k(1 - y_k)
+\end{equation*}
 
-\begin{equation}
-	\frac{\partial}{\partial a_j} y_k = -\frac{\exp(a_k) \exp(a_j) }{(\sum \exp(a_j))^2} =  y_k y_j
-\end{equation}
+$k \neq j$の時は、
 
-よってこの二つをまとめて、
-$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$
+\begin{equation*}
+	\frac{\partial y_k}{\partial a_j} = -\frac{\exp(a_k) \exp(a_j) }{(\sum_i \exp(a_i))^2} =  -y_k y_j = y_k(-y_j)
+\end{equation*}
+
+あとは、上の二つの式をうまくまとめることがこの問題のゴールとなる。
+
+さて、単位行列$I$の各要素について、次のことがわかっている：
+\begin{equation*}
+I_{kj} =  \left \{
+\begin{array}{l}
+1　(k＝jのとき) \\
+0　(k≠jのとき)
+\end{array}
+\right.	
+\end{equation*}
+
+これを使うと、上の二つの式を$y_k (I_{kj} - y_j)$とまとめることができる。
+
+よって、$\frac{\partial y_k}{\partial a_j} = y_k (I_{kj} - y_j)$
 
 
 
